@@ -1,47 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import { prependOnceListener } from "cluster";
+import PropTypes from "prop-types";
 
-export const AddContact = () => {
-	function saveContact(contactToSave) {
-		fetch("https://assets.breatheco.de/apis/fake/contact/agenda/steph_agenda", {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(contactToSave)
-		})
-			.then(resp => resp.json())
-			.then(data => {
-				console.log("saveContact", data);
-				// getTodo();
-			});
-	}
-
+export const editContact = props => {
 	return (
 		<div className="container">
 			<div>
-				<h1 className="text-center mt-5">Add a new contact</h1>
+				<h1 className="text-center mt-5">Edit an existing contact</h1>
 				<form>
 					<div className="form-group">
-						<label>Full Name</label>
+						<label>{store.contacts[props.match.params.theid].full_name}</label>
 						<input type="text" className="form-control" placeholder="Full Name" />
 					</div>
 
 					<div className="form-group">
-						<label>Email</label>
+						<label>{store.contacts[props.match.params.theid].email}</label>
 						<input type="email" className="form-control" placeholder="Enter email" />
 					</div>
 
 					<div className="form-group">
-						<label>Phone</label>
+						<label>{store.contacts[props.match.params.theid].phone}</label>
 						<input type="phone" className="form-control" placeholder="Enter phone" />
 					</div>
 
 					<div className="form-group">
-						<label>Address</label>
+						<label>{store.contacts[props.match.params.theid].address}</label>
 						<input type="text" className="form-control" placeholder="Enter address" />
 					</div>
+
+					{/* <div className="form-group">
+						<label>{store.contacts[props.match.params.theid].image}</label>
+						<input type="text" className="form-control" placeholder="Enter image URL" />
+					</div> */}
 
 					<button type="button" className="btn btn-primary form-control">
 						save
@@ -54,4 +44,11 @@ export const AddContact = () => {
 			</div>
 		</div>
 	);
+};
+
+editContact.propTypes = {
+	history: PropTypes.object,
+	onDelete: PropTypes.func,
+	link: PropTypes.string,
+	match: PropTypes.object
 };

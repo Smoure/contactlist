@@ -1,51 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import MikePhoto from "../../img/m101.jpg";
+// import MikePhoto from "../../img/m101.jpg";
+import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
 export const ContactCard = props => {
-	const [state, setState] = useState({
-		//initialize state here
-	});
+	// const [state, setState] = useState({
+	//initialize state here
+	// });
+	const [contacts, setContacts] = useState([]);
+	const { store, actions } = useContext(Context);
 
 	return (
-		<li className="list-group-item">
-			<div className="row w-100">
-				<div className="col-12 col-sm-6 col-md-3 px-0">
-					<img src={MikePhoto} alt="Mike Anamendolla" className="rounded-circle mx-auto d-block img-fluid" />
-				</div>
-				<div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
-					<div className=" float-right">
-						<button className="btn">
-							<i className="fas fa-pencil-alt mr-3" />
-						</button>
-						<button className="btn" onClick={() => props.onDelete()}>
-							<i className="fas fa-trash-alt" />
-						</button>
+		<>
+			<li className="list-group-item">
+				<div className="row w-100">
+					<div className="col-12 col-sm-6 col-md-3 px-0">
+						<img src="..." alt="..." className="rounded-circle mx-auto d-block img-fluid" />
 					</div>
-					<label className="name lead">Mike Anamendolla</label>
-					<br />
-					<i className="fas fa-map-marker-alt text-muted mr-3" />
-					<span className="text-muted">5842 Hillcrest Rd</span>
-					<br />
-					<span
-						className="fa fa-phone fa-fw text-muted mr-3"
-						data-toggle="tooltip"
-						title=""
-						data-original-title="(870) 288-4149"
-					/>
-					<span className="text-muted small">(870) 288-4149</span>
-					<br />
-					<span
-						className="fa fa-envelope fa-fw text-muted mr-3"
-						data-toggle="tooltip"
-						data-original-title=""
-						title=""
-					/>
-					<span className="text-muted small text-truncate">mike.ana@example.com</span>
+					<div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
+						<div className=" float-right">
+							<button className="btn">
+								<Link to={"/edit/" + props.link}>
+									<i className="fas fa-pencil-alt mr-3" />
+								</Link>
+							</button>
+							<button className="btn" onClick={() => props.onDelete()}>
+								<i className="fas fa-trash-alt" />
+							</button>
+						</div>
+						<label className="name lead">Full Name</label>
+						<br />
+						<i className="fas fa-map-marker-alt text-muted mr-3" />
+						<span className="text-muted">Address</span>
+						<br />
+						<span
+							className="fa fa-phone fa-fw text-muted mr-3"
+							data-toggle="tooltip"
+							title=""
+							data-original-title="(870) 288-4149"
+						/>
+						<span className="text-muted small">Phone</span>
+						<br />
+						<span
+							className="fa fa-envelope fa-fw text-muted mr-3"
+							data-toggle="tooltip"
+							data-original-title=""
+							title=""
+						/>
+						<span className="text-muted small text-truncate">Email</span>
+					</div>
 				</div>
-			</div>
-		</li>
+			</li>
+		</>
 	);
 };
 
@@ -55,7 +63,9 @@ export const ContactCard = props => {
  **/
 ContactCard.propTypes = {
 	history: PropTypes.object,
-	onDelete: PropTypes.func
+	onDelete: PropTypes.func,
+	link: PropTypes.string,
+	match: PropTypes.object
 };
 
 /**
